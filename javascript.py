@@ -24,7 +24,6 @@ return PGN
 def convertSquare(square):
     first = str(string.ascii_lowercase.index(square[0]) + 1)
     second = str(square[1])
-    print(first+second)
     return first + second
 
 def JS_highlightSquare(square, color):
@@ -41,3 +40,10 @@ def JS_highlightSquare(square, color):
     """
     return js
 
+def JS_removeHighlight(square):
+    num = convertSquare(square)
+    js = f"""
+    let sqr = document.getElementById({num})
+    sqr.parentNode.removeChild(sqr);
+    """
+    return js
