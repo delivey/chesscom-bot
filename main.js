@@ -18,3 +18,19 @@ function getMoves() {
     }
     console.log(PGN)
 }
+
+function highlightSquare(num, color) {
+    const newSquare = document.createElement("div");
+    newSquare.setAttribute("id", num);
+    newSquare.classList.add(`square-${num}`);
+    newSquare.classList.add("highlight");
+    newSquare.style.backgroundColor = color;
+    newSquare.style.opacity = 0.5
+    newSquare.dataset.testElement = "highlight"
+    document.querySelector("chess-board").appendChild(newSquare); 
+}
+
+function removeHighlight(num) {
+    let sqr = document.getElementById(num)
+    sqr.parentNode.removeChild(sqr);
+}
