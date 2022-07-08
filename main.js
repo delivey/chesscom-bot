@@ -34,3 +34,12 @@ function removeHighlight(num) {
     let sqr = document.getElementById(num)
     sqr.parentNode.removeChild(sqr);
 }
+
+function getSquares() {
+    squares = []
+    sq = document.querySelectorAll('div[data-test-element="highlight"]')
+    for (s of sq) {
+        squares.push(s.classList[1].replace("square-", ""))
+    }
+    return squares
+}

@@ -12,16 +12,13 @@ driver.get("https://www.chess.com/play/computer")
 
 finish = input("Finished setup?\n")
 
-squares = []
+# Recommendation for best move
+squares = ["e2", "e4"]
+driver.execute_script(JS_highlightSquare("e2", "blue"))
+driver.execute_script(JS_highlightSquare("e4", "red"))
 
-pgn = driver.execute_script(JS_getPgn)
-move = get_best_move(pgn)
-squares = [move[i:i+2] for i in range(0, len(move), 2)]
-driver.execute_script(JS_highlightSquare(squares[0], "blue"))
-driver.execute_script(JS_highlightSquare(squares[1], "red"))
-print(move)
 
-idx = 1
+idx = 0
 while True:
     idx += 1
     try:

@@ -21,6 +21,9 @@ for (let move of moves) {
 return PGN
 """
 
+def convertNums(nums): # nums - array
+    ...
+
 def convertSquare(square):
     first = str(string.ascii_lowercase.index(square[0]) + 1)
     second = str(square[1])
