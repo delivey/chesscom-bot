@@ -22,7 +22,19 @@ return PGN
 """
 
 def convertNums(nums): # nums - array
-    ...
+    new_nums = []
+    for i in nums:
+        new_nums.append(string.ascii_lowercase[int(i[0])-1] + i[1])
+    return new_nums
+
+JS_getLastMoveNums = """
+sq = document.querySelectorAll('div[data-test-element="highlight"]')
+squares = []
+for (s of sq) {
+    squares.push(s.classList[1].replace("square-", ""))
+}
+return squares
+"""
 
 def convertSquare(square):
     first = str(string.ascii_lowercase.index(square[0]) + 1)

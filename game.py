@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from engine import get_best_move
-from javascript import JS_getPgn, JS_highlightSquare, JS_removeHighlight
+from javascript import JS_getPgn, JS_highlightSquare, JS_removeHighlight, JS_getLastMoveNums, convertNums
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -28,6 +28,12 @@ while True:
             driver.execute_script(JS_removeHighlight(squares[1]))
         except Exception as e:
             print(e)
+
+        last_move_nums = driver.execute_script(JS_getLastMoveNums)
+        print(last_move_nums)
+        last_squares = convertNums(last_move_nums)
+        print(last_squares)
+
         pgn = str(driver.execute_script(JS_getPgn)).rstrip().lstrip()
         move = get_best_move(pgn)
         print(move)
