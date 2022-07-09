@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from engine import get_best_move
-from javascript import JS_getPgn, JS_highlightSquare, JS_removeHighlight, JS_getLastMoveNums, convertNums
+from javascript import JS_highlightSquare, JS_removeHighlight, JS_getLastMoveNums, convertNums
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -20,11 +20,14 @@ idx = 0
 while True:
     idx += 1
     try:
+        if idx == 2:
+            driver.execute_script(JS_removeHighlight("e2"))
+            driver.execute_script(JS_removeHighlight("e4"))
         all_squares = []
-        own_next = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{(idx*2)-1}"]')))
+        own_next = WebDriverWait(driver, 100).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{(idx*2)-1}"]')))
         last_move_nums = driver.execute_script(JS_getLastMoveNums)
         all_squares.append("".join(convertNums(last_move_nums)))
-        next = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{idx*2}"]')))
+        next = WebDriverWait(driver, 100).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{idx*2}"]')))
         try:
             driver.execute_script(JS_removeHighlight(squares[0]))
             driver.execute_script(JS_removeHighlight(squares[1]))
