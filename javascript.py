@@ -22,6 +22,7 @@ return PGN
 """
 
 def convertNums(nums): # nums - array
+    nums = [i for i in nums if i != "highlight"]
     new_nums = []
     for i in nums:
         new_nums.append(string.ascii_lowercase[int(i[0])-1] + i[1])
@@ -30,9 +31,24 @@ def convertNums(nums): # nums - array
 JS_getLastMoveNums = """
 sq = document.querySelectorAll('div[data-test-element="highlight"]')
 squares = []
+reverseList = false
+idx = 0
 for (s of sq) {
-    squares.push(s.classList[1].replace("square-", ""))
+    square = s.classList[1].replace("square-", "")
+    // For first iteration
+    if (idx == 0) {
+        console.log(document.getElementsByClassName(`square-${square}`).length)
+        squareHasPiece = document.getElementsByClassName(`square-${square}`).length > 1
+        if (squareHasPiece) reverseList = true
+    }
+    squares.push(square)
+    idx++
 }
+if (reverseList) {
+    console.log("reversing")
+    squares.reverse()
+}
+// console.log(squares)
 return squares
 """
 

@@ -22,6 +22,10 @@ idx = 0
 while True:
     idx += 1
     try:
+        own_next = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{(idx*2)-1}"]')))
+        last_move_nums = driver.execute_script(JS_getLastMoveNums)
+        last_squares = convertNums(last_move_nums)
+        print(last_squares)
         next = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{idx*2}"]')))
         try:
             driver.execute_script(JS_removeHighlight(squares[0]))
@@ -30,7 +34,6 @@ while True:
             print(e)
 
         last_move_nums = driver.execute_script(JS_getLastMoveNums)
-        print(last_move_nums)
         last_squares = convertNums(last_move_nums)
         print(last_squares)
 
