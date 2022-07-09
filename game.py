@@ -13,19 +13,17 @@ driver.get("https://www.chess.com/play/computer")
 finish = input("Finished setup?\n")
 
 # Recommendation for best move
-squares = ["e2", "e4"]
 driver.execute_script(JS_highlightSquare("e2", "blue"))
 driver.execute_script(JS_highlightSquare("e4", "red"))
-
 
 idx = 0
 while True:
     idx += 1
     try:
+        all_squares = []
         own_next = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{(idx*2)-1}"]')))
         last_move_nums = driver.execute_script(JS_getLastMoveNums)
-        last_squares = convertNums(last_move_nums)
-        print(last_squares)
+        all_squares.append("".join(convertNums(last_move_nums)))
         next = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{idx*2}"]')))
         try:
             driver.execute_script(JS_removeHighlight(squares[0]))
@@ -34,11 +32,12 @@ while True:
             print(e)
 
         last_move_nums = driver.execute_script(JS_getLastMoveNums)
-        last_squares = convertNums(last_move_nums)
-        print(last_squares)
+        all_squares.append("".join(convertNums(last_move_nums)))
 
-        pgn = str(driver.execute_script(JS_getPgn)).rstrip().lstrip()
-        move = get_best_move(pgn)
+        print(all_squares)
+
+        # pgn = str(driver.execute_script(JS_getPgn)).rstrip().lstrip()
+        move = get_best_move(all_squares)
         print(move)
         squares = [move[i:i+2] for i in range(0, len(move), 2)]
         driver.execute_script(JS_highlightSquare(squares[0], "blue"))
