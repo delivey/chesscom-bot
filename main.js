@@ -43,3 +43,49 @@ function getSquares() {
     }
     return squares
 }
+
+
+sq = document.querySelectorAll('div[data-test-element="highlight"]')
+squares = []
+reverseList = false
+idx = 0
+for (s of sq) {
+    square = s.classList[1].replace("square-", "")
+    // For first iteration
+    if (idx == 0 || idx == 1) {
+        piecesOnSquare = document.getElementsByClassName(`square-${square}`)
+        console.log(square, piecesOnSquare.length)
+        squareHasPiece = piecesOnSquare.length > 1
+        if (squareHasPiece) reverseList = true
+    }
+    squares.push(square)
+    idx++
+}
+if (reverseList) {
+    console.log("reversing")
+    squares.reverse()
+}
+// return squares
+
+
+highlighted = document.querySelectorAll('div[data-test-element="highlight"]')
+squares = []
+reverseList = false
+idx = 0
+
+for (square of highlighted) {
+    square = square.classList[1].replace("square-", "") // 77, 64, etc.
+    squares.push(square)
+
+    piecesOnSquare = document.getElementsByClassName(`square-${square}`)
+    squareHasPiece = piecesOnSquare.length > 1
+    if (!squareHasPiece && square !== squares[0]) reverseList = true
+
+    idx++
+}
+if (reverseList) {
+    console.log("reversing")
+    squares.reverse()
+}
+console.log(squares)
+// return squares

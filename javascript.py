@@ -1,26 +1,34 @@
 import string
 
 def convertNums(nums): # nums - array
-    nums = [i for i in nums if i != "highlight"]
     new_nums = []
     for i in nums:
         new_nums.append(string.ascii_lowercase[int(i[0])-1] + i[1])
     return new_nums
 
 JS_getLastMoveNums = """
-sq = document.querySelectorAll('div[data-test-element="highlight"]')
+highlighted = document.querySelectorAll('div[data-test-element="highlight"]')
 squares = []
 reverseList = false
 idx = 0
-for (s of sq) {
-    square = s.classList[1].replace("square-", "")
-    // For first iteration
-    if (idx == 0) {
-        console.log(document.getElementsByClassName(`square-${square}`).length)
-        squareHasPiece = document.getElementsByClassName(`square-${square}`).length > 1
-        if (squareHasPiece) reverseList = true
+
+for (square of highlighted) {
+    square = square.classList[1].replace("square-", "") // 77, 64, etc.
+    allPiecesOnSquare = document.getElementsByClassName(`square-${square}`)
+    piecesOnSquare = []
+    
+    for (piece of allPiecesOnSquare) {
+        if (!piece.classList.contains("bot-made")) piecesOnSquare.push(piece)
     }
-    squares.push(square)
+
+    if (piecesOnSquare.length > 0) { squares.push(square) }
+    else { continue }
+
+    // Actual code for pieces 
+    console.log(square, piecesOnSquare.length, squares, idx)
+    squareHasPiece = piecesOnSquare.length > 1
+    if (!squareHasPiece && square !== squares[0]) reverseList = true
+
     idx++
 }
 if (reverseList) {
@@ -42,6 +50,7 @@ def JS_highlightSquare(square, color):
     newSquare.setAttribute("id", {num});
     newSquare.classList.add(`square-{num}`);
     newSquare.classList.add("highlight");
+    newSquare.classList.add("bot-made")
     newSquare.style.backgroundColor = "{color}";
     newSquare.style.opacity = 0.5
     newSquare.dataset.testElement = "highlight"
