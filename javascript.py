@@ -27,7 +27,6 @@ if (reverseList) {
     console.log("reversing")
     squares.reverse()
 }
-// console.log(squares)
 return squares
 """
 

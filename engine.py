@@ -6,4 +6,5 @@ def get_best_move(squares):
     global stockfish
     stockfish.make_moves_from_current_position(squares)
     best_move = stockfish.get_best_move()
+    print(stockfish.get_board_visual())
     return best_move
