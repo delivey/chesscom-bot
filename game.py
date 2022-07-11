@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from engine import get_best_move
-from javascript import JS_highlightSquare, JS_removeHighlight, JS_getLastMoveNums, convertNums
+from javascript import JS_highlightSquare, JS_removeHighlight, JS_getLastMoveNums
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])

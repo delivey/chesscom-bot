@@ -1,11 +1,5 @@
 import string
 
-def convertNums(nums): # nums - array
-    new_nums = []
-    for i in nums:
-        new_nums.append(string.ascii_lowercase[int(i[0])-1] + i[1])
-    return new_nums
-
 JS_getLastMoveNums = """
 highlighted = document.querySelectorAll('div[data-test-element="highlight"]')
 squares = []
@@ -32,7 +26,6 @@ for (square of highlighted) {
     idx++
 }
 if (reverseList) {
-    console.log("reversing")
     squares.reverse()
 }
 
