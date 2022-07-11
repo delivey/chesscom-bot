@@ -35,7 +35,24 @@ if (reverseList) {
     console.log("reversing")
     squares.reverse()
 }
-return squares
+
+new_squares = []
+const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+for (square of squares) { // square - 55, 77, etc.
+    new_squares.push(alphabet[parseInt(square[0])-1] + square[1])
+}
+let full = new_squares.join("")
+
+moves = document.getElementsByClassName("move")
+last_move = moves[moves.length-1]
+let children = last_move.children
+let move = children[children.length-1].innerText
+if (move.includes("=")) {
+    console.log("promoting")
+    full += move.split("=")[1].toLowerCase();
+} else { promotion = false }
+
+return full
 """
 
 def convertSquare(square):
