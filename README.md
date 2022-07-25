@@ -10,7 +10,7 @@
 
 # TODO:
 - [ ] Fix issue with moves being in the wrong order
-- [ ] Instant highlight removing after moving
+- [x] Instant highlight removing after moving
 - [ ] Figure out how to make it faster
 - [ ] Removal of "Finished setup?" input
 - [ ] Make it work when it starts as black

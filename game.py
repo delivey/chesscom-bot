@@ -24,17 +24,19 @@ while True:
             driver.execute_script(JS_removeHighlight("e2"))
             driver.execute_script(JS_removeHighlight("e4"))
         all_squares = []
-        own_next = WebDriverWait(driver, 100).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{(idx*2)-1}"]')))
+        WebDriverWait(driver, 100).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{(idx*2)-1}"]')))
         last_move_nums = driver.execute_script(JS_getLastMoveNums)
         print(last_move_nums)
         all_squares.append(last_move_nums)
-        next = WebDriverWait(driver, 100).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{idx*2}"]')))
+        
+        WebDriverWait(driver, 100).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{idx*2-1}"]')))
         try:
             driver.execute_script(JS_removeHighlight(squares[0]))
             driver.execute_script(JS_removeHighlight(squares[1]))
         except Exception as e:
             print(e)
 
+        WebDriverWait(driver, 100).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f'div[data-ply="{idx*2}"]')))
         last_move_nums = driver.execute_script(JS_getLastMoveNums)
         print(last_move_nums)
         all_squares.append(last_move_nums)
