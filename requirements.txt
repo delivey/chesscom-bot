@@ -1,0 +1,2 @@
+stockfish==3.27.0
+selenium==4.3.0
